@@ -60,7 +60,6 @@ const Home = () => {
 					foregroundService: {
 						notificationTitle: "Geolocation is use",
 						notificationBody: "Geolocation is being used in the background",
-						notificationColor: 'black',
 					},
 				});
 
@@ -72,34 +71,34 @@ const Home = () => {
 		}
 	};
 
-	const handlePositionAsync = async () => {
-		const { status } = await Location.requestPermissionsAsync();
-		if (status === "granted") {
-			await Location.watchPositionAsync(LOCATION_SETTINGS, (location) => {
-				handleErrorMsg(null);
+const handlePositionAsync = async () => {
+	const { status } = await Location.requestPermissionsAsync();
+	if (status === "granted") {
+		await Location.watchPositionAsync(LOCATION_SETTINGS, (location) => {
+			handleErrorMsg(null);
 
-				const {
-					coords: { latitude, longitude },
-				} = location;
+			const {
+				coords: { latitude, longitude },
+			} = location;
 
-				const latitudeDelta = latitude - longitude;
-				const longitudeDelta = latitudeDelta * ASPECT_RATIO;
+			const latitudeDelta = latitude - longitude;
+			const longitudeDelta = latitudeDelta * ASPECT_RATIO;
 
-				setLocation({
-					...location,
-					coords: {
-						...location.coords,
-						latitudeDelta,
-						longitudeDelta,
-					},
-				});
+			setLocation({
+				...location,
+				coords: {
+					...location.coords,
+					latitudeDelta,
+					longitudeDelta,
+				},
 			});
+		});
 
-			return;
-		}
+		return;
+	}
 
-		handleErrorMsg("Permission to access location was denied");
-	};
+	handleErrorMsg("Permission to access location was denied");
+};
 
 	const handleConfirmCheckOut = (value: number) => {
 		if (!alertPresent) {
@@ -156,10 +155,10 @@ const Home = () => {
 		handleConfirmCheckOut(distance);
 	}, [distance]);
 
-	useEffect(() => {
-		handlePositionAsync();
-		NotificationPermission();
-	}, []);
+useEffect(() => {
+	handlePositionAsync();
+	NotificationPermission();
+}, []);
 
 	return (
 		<View style={styles.container}>
