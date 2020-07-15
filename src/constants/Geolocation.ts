@@ -33,7 +33,7 @@ export const LOCATION_SETTINGS = {
 };
 
 export const TRACK_COORDS = {
-	...coorindatesSamples.deAnza3,
+	...coorindatesSamples.brunoMartins,
 };
 
 export const LATITUDE_DELTA = TRACK_COORDS.latitude - TRACK_COORDS.longitude;
