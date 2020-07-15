@@ -1,5 +1,5 @@
 import { LocationToReachI } from "@components/Map/types";
-import { Accuracy } from "expo-location";
+import { Accuracy, LocationOptions } from "expo-location";
 import { GpsPoint } from "haversine-position";
 
 import Layout from "./Layout";
@@ -26,10 +26,10 @@ const coorindatesSamples = {
 export const ASPECT_RATIO =
 	(Layout.window.width - 10 * 2) / (Layout.window.height / 2);
 
-export const LOCATION_SETTINGS = {
-	accuracy: Accuracy.BestForNavigation,
-	enableHighAccuracy: true,
-	timeInterval: 200,
+export const LOCATION_SETTINGS: LocationOptions = {
+	accuracy: Accuracy.Balanced,
+	timeInterval: 0,
+	distanceInterval: 0,
 };
 
 export const TRACK_COORDS = {
