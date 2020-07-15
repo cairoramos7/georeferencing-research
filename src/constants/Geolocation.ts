@@ -27,8 +27,8 @@ export const ASPECT_RATIO =
 	(Layout.window.width - 10 * 2) / (Layout.window.height / 2);
 
 export const LOCATION_SETTINGS: LocationOptions = {
-	accuracy: Accuracy.Balanced,
-	timeInterval: 0,
+	accuracy: Accuracy.Highest,
+	timeInterval: 300,
 	distanceInterval: 0,
 };
 
