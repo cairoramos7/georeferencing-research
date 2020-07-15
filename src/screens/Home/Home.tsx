@@ -12,6 +12,7 @@ import {
 import { distanceToHuman } from "@util/Mutators/Distance";
 import { NotificationPermission } from "@util/Permissions/Notification";
 import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 import * as TaskManager from "expo-task-manager";
 import { Haversine, GpsPoint } from "haversine-position";
 import React, { useEffect, useState } from "react";
@@ -71,34 +72,37 @@ const Home = () => {
 		}
 	};
 
-const handlePositionAsync = async () => {
-	const { status } = await Location.requestPermissionsAsync();
-	if (status === "granted") {
-		await Location.watchPositionAsync(LOCATION_SETTINGS, (location) => {
-			handleErrorMsg(null);
+	const handlePositionAsync = async () => {
+		// permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
+		const { status, permissions } = await Permissions.askAsync(
+			Permissions.LOCATION
+		);
 
-			const {
-				coords: { latitude, longitude },
-			} = location;
+		if (status === "granted") {
+			await Location.watchPositionAsync(LOCATION_SETTINGS, (location) => {
+				handleErrorMsg(null);
 
-			const latitudeDelta = latitude - longitude;
-			const longitudeDelta = latitudeDelta * ASPECT_RATIO;
+				const {
+					coords: { latitude, longitude },
+				} = location;
 
-			setLocation({
-				...location,
-				coords: {
-					...location.coords,
-					latitudeDelta,
-					longitudeDelta,
-				},
+				const latitudeDelta = latitude - longitude;
+				const longitudeDelta = latitudeDelta * ASPECT_RATIO;
+
+				setLocation({
+					...location,
+					coords: {
+						...location.coords,
+						latitudeDelta,
+						longitudeDelta,
+					},
+				});
 			});
-		});
-
-		return;
-	}
-
-	handleErrorMsg("Permission to access location was denied");
-};
+		} else {
+			handleErrorMsg("Permission to access location was denied");
+			throw new Error("Location permission not granted");
+		}
+	};
 
 	const handleConfirmCheckOut = (value: number) => {
 		if (!alertPresent) {
@@ -155,10 +159,10 @@ const handlePositionAsync = async () => {
 		handleConfirmCheckOut(distance);
 	}, [distance]);
 
-useEffect(() => {
-	handlePositionAsync();
-	NotificationPermission();
-}, []);
+	useEffect(() => {
+		handlePositionAsync();
+		NotificationPermission();
+	}, []);
 
 	return (
 		<View style={styles.container}>
