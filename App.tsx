@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import BgTracking from "@screens/BgTracking";
 import Home from "@screens/Home";
 import { DispatchNotification } from "@util/Notification/Notification";
-import * as Location from "expo-location";
 import * as SplashScreen from "expo-splash-screen";
 import * as TaskManager from "expo-task-manager";
 import { Haversine, GpsPoint } from "haversine-position";
@@ -74,67 +73,51 @@ const App = (props: AppProps) => {
 
 TaskManager.defineTask(
 	LOCATION_TASK_NAME,
-	({ data: { eventType, region }, error }) => {
+	({ data, error }: { data: any; error: any }) => {
 		if (error) {
-			console.log(error);
-			// check `error.message` for more details.
+			console.log(error.message);
+			// Error occurred - check `error.message` for more details.
 			return;
 		}
-		if (eventType === Location.GeofencingEventType.Enter) {
-			console.log("You've entered region:", region);
-		} else if (eventType === Location.GeofencingEventType.Exit) {
-			console.log("You've left region:", region);
+
+		if (data) {
+			const { locations } = data;
+
+			if (locations.length) {
+				const {
+					coords: {
+						latitude: latOriginBackground,
+						longitude: lngOriginBackground,
+					},
+				} = locations.pop();
+
+				const originBackground: GpsPoint = {
+					lat: latOriginBackground,
+					lng: lngOriginBackground,
+				};
+
+				const distanceInMetersBackground = Haversine.getDistance(
+					originBackground,
+					P1_LOCATION
+				);
+
+				if (Math.round(distanceInMetersBackground) < DISTANCE_TO_CHECKOUT) {
+					DispatchNotification({
+						title: "Checkout",
+						body: "Checkout now?",
+					});
+
+					// TaskManager.unregisterAllTasksAsync();
+				}
+			}
 		}
 	}
 );
 
-/* TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
-	if (error) {
-		console.log(error.message);
-		// Error occurred - check `error.message` for more details.
-		return;
-	}
-	if (data) {
-		// eslint-disable-next-line
-		const { locations } = data;
-
-		if (locations.length) {
-			const {
-				coords: {
-					latitude: latOriginBackground,
-					longitude: lngOriginBackground,
-				},
-			} = locations.pop();
-
-			const originBackground: GpsPoint = {
-				lat: latOriginBackground,
-				lng: lngOriginBackground,
-			};
-
-			const distanceInMetersBackground = Haversine.getDistance(
-				originBackground,
-				P1_LOCATION
-			);
-
-			// eslint-disable-next-line no-console
-			console.log("distanceInMetersBackground:", distanceInMetersBackground);
-
-			if (Math.round(distanceInMetersBackground) < DISTANCE_TO_CHECKOUT) {
-				DispatchNotification({
-					title: "Checkout",
-					body: "Checkout now?",
-				});
-
-				// TaskManager.unregisterAllTasksAsync();
-			}
-		}
-	}
-}); */
-
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: Layout.statusBarPaddingTop,
-		borderWidth: 1,
+		// borderWidth: 1,
 	},
 	SafeAreaContainer: {
 		height: "100%",
