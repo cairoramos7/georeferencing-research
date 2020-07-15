@@ -4,20 +4,36 @@ import { GpsPoint } from "haversine-position";
 
 import Layout from "./Layout";
 
+const coorindatesSamples = {
+	appleCampus: {
+		latitude: 37.3317257,
+		longitude: -122.0304735,
+	},
+	deAnza3: {
+		latitude: 37.3316403,
+		longitude: -122.0324442,
+	},
+	brunoMartins: {
+		latitude: 40.416845137045875,
+		longitude: -111.90790810299363,
+	},
+	cairoRamos: {
+		latitude: -16.532787,
+		longitude: -50.387638,
+	},
+};
+
 export const ASPECT_RATIO =
 	(Layout.window.width - 10 * 2) / (Layout.window.height / 2);
 
 export const LOCATION_SETTINGS = {
 	accuracy: Accuracy.BestForNavigation,
-	// enableHighAccuracy: true,
-	// timeInterval: 200,
+	enableHighAccuracy: true,
+	timeInterval: 200,
 };
 
 export const TRACK_COORDS = {
-	latitude: -16.532787,
-	longitude: -50.387638,
-	// latitude: 40.416845137045875,
-	// longitude: -111.90790810299363,
+	...coorindatesSamples.deAnza3,
 };
 
 export const LATITUDE_DELTA = TRACK_COORDS.latitude - TRACK_COORDS.longitude;

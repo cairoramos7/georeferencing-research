@@ -60,8 +60,10 @@ const Home = () => {
 					foregroundService: {
 						notificationTitle: "Geolocation is use",
 						notificationBody: "Geolocation is being used in the background",
+						notificationColor: 'black',
 					},
 				});
+
 				setUseBackgroundLocation(true);
 			}
 		} else {

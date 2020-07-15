@@ -1,26 +1,32 @@
 {
-  "expo": {
-    "name": "georeferencing-research",
-    "slug": "georeferencing-research",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "com.cairoramos7.georeferencing-research"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+	"expo": {
+		"name": "georeferencing-research",
+		"slug": "georeferencing-research",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": [
+			"**/*"
+		],
+		"ios": {
+			"bundleIdentifier": "com.cairoramos7.georeferencing-research",
+			"infoPlist": {
+				"UIBackgroundModes": [
+					"location",
+					"fetch"
+				]
+			}
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		}
+	}
 }

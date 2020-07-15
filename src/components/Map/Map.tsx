@@ -79,6 +79,7 @@ const Map = ({
 						handleMapReady(true);
 					}, 500);
 				}}
+				provider="google"
 			>
 				{mapReady ? (
 					<>

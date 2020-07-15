@@ -2,8 +2,10 @@ import { P1_LOCATION, DISTANCE_TO_CHECKOUT } from "@constants/Geolocation";
 import Layout from "@constants/Layout";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import BgTracking from "@screens/BgTracking";
 import Home from "@screens/Home";
 import { DispatchNotification } from "@util/Notification/Notification";
+import * as Location from "expo-location";
 import * as SplashScreen from "expo-splash-screen";
 import * as TaskManager from "expo-task-manager";
 import { Haversine, GpsPoint } from "haversine-position";
@@ -61,6 +63,7 @@ const App = (props: AppProps) => {
 							}}
 						>
 							<Stack.Screen name="Home" component={Home} />
+							<Stack.Screen name="BgTracking" component={BgTracking} />
 						</Stack.Navigator>
 					</NavigationContainer>
 				</SafeAreaView>
@@ -69,7 +72,23 @@ const App = (props: AppProps) => {
 	}
 };
 
-TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
+TaskManager.defineTask(
+	LOCATION_TASK_NAME,
+	({ data: { eventType, region }, error }) => {
+		if (error) {
+			console.log(error);
+			// check `error.message` for more details.
+			return;
+		}
+		if (eventType === Location.GeofencingEventType.Enter) {
+			console.log("You've entered region:", region);
+		} else if (eventType === Location.GeofencingEventType.Exit) {
+			console.log("You've left region:", region);
+		}
+	}
+);
+
+/* TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
 	if (error) {
 		console.log(error.message);
 		// Error occurred - check `error.message` for more details.
@@ -110,7 +129,7 @@ TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
 			}
 		}
 	}
-});
+}); */
 
 const styles = StyleSheet.create({
 	container: {
