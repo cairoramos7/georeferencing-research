@@ -1,18 +1,17 @@
-import { LOCATION_SETTINGS, ASPECT_RATIO } from "@constants/Geolocation";
-import * as Location from "expo-location";
-import * as TaskManager from "expo-task-manager";
-import React from "react";
-import { View, StyleSheet, Button } from "react-native";
+import * as Location from 'expo-location';
+import * as TaskManager from 'expo-task-manager';
+import React from 'react';
+import { View, StyleSheet, Button } from 'react-native';
 
-const LOCATION_TASK_NAME = "background-location-task";
+const LOCATION_TASK_NAME = 'background-location-task';
 
 export default function App() {
 	const handleLocation = async (): Promise<void> => {
 		const { status } = await Location.requestPermissionsAsync();
-		if (status === "granted") {
+		if (status === 'granted') {
 			await Location.startGeofencingAsync(LOCATION_TASK_NAME, [
 				{
-					identifier: "5",
+					identifier: '5',
 					latitude: 34.17,
 					longitude: -118.4,
 					radius: 50,
@@ -43,7 +42,7 @@ export default function App() {
 			return;
 		}
 
-		alert("Permission to access location was denied");
+		alert('Permission to access location was denied');
 	};
 
 	const handleDisableLocation = () => {
@@ -52,7 +51,10 @@ export default function App() {
 
 	return (
 		<View style={styles.container}>
-			<Button onPress={handleLocation} title="Enable Background Location" />
+			<Button
+				onPress={handleLocation}
+				title="Enable Background Location"
+			/>
 			<Button
 				onPress={handleDisableLocation}
 				title="Disable Background Location"

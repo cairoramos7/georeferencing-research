@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Map from "@components/Map";
-import RenderError from "@components/RenderError";
-import RenderLatLng from "@components/RenderLatLng";
+import Map from '@components/Map';
+import RenderError from '@components/RenderError';
+import RenderLatLng from '@components/RenderLatLng';
 import {
 	LOCATION_SETTINGS,
 	ASPECT_RATIO,
 	DISTANCE_TO_CHECKOUT,
 	LOCATION_TO_REACH,
 	P1_LOCATION,
-} from "@constants/Geolocation";
-import { distanceToHuman } from "@util/Mutators/Distance";
-import { NotificationPermission } from "@util/Permissions/Notification";
-import * as Location from "expo-location";
-import * as Permissions from "expo-permissions";
-import * as TaskManager from "expo-task-manager";
-import { Haversine, GpsPoint } from "haversine-position";
-import React, { useEffect, useState } from "react";
-import { View, Alert, Text, TouchableOpacity } from "react-native";
+} from '@constants/Geolocation';
+import { registerForPushNotificationsAsync } from '@services/pushNotifications';
+import { distanceToHuman } from '@util/Mutators/Distance';
+import { NotificationPermission } from '@util/Permissions/Notification';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import * as TaskManager from 'expo-task-manager';
+import { Haversine, GpsPoint } from 'haversine-position';
+import React, { useEffect, useState } from 'react';
+import { View, Alert, Text, TouchableOpacity } from 'react-native';
 
-import styles from "./styles";
-import { LocationI } from "./types";
+import styles from './styles';
+import { LocationI } from './types';
 
-const LOCATION_TASK_NAME = "background-location-task";
+const LOCATION_TASK_NAME = 'background-location-task';
 
 const Home = () => {
 	const [alertPresent, setAlertPresent] = useState<boolean>(false);
@@ -53,14 +54,15 @@ const Home = () => {
 	const handleBackgroundLocation = async () => {
 		if (!useBackgroundLocation) {
 			const { status } = await Location.requestPermissionsAsync();
-			if (status === "granted") {
+			if (status === 'granted') {
 				await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
 					accuracy: Location.Accuracy.BestForNavigation,
 					pausesUpdatesAutomatically: false,
 					showsBackgroundLocationIndicator: true,
 					foregroundService: {
-						notificationTitle: "Geolocation is use",
-						notificationBody: "Geolocation is being used in the background",
+						notificationTitle: 'Geolocation is use',
+						notificationBody:
+							'Geolocation is being used in the background',
 					},
 				});
 
@@ -78,7 +80,7 @@ const Home = () => {
 			Permissions.LOCATION
 		);
 
-		if (status === "granted") {
+		if (status === 'granted') {
 			await Location.watchPositionAsync(LOCATION_SETTINGS, (location) => {
 				handleErrorMsg(null);
 
@@ -99,29 +101,33 @@ const Home = () => {
 				});
 			});
 		} else {
-			handleErrorMsg("Permission to access location was denied");
-			throw new Error("Location permission not granted");
+			handleErrorMsg('Permission to access location was denied');
+			throw new Error('Location permission not granted');
 		}
 	};
 
 	const handleConfirmCheckOut = (value: number) => {
 		if (!alertPresent) {
-			if (value && Math.round(value) < DISTANCE_TO_CHECKOUT && !checkout) {
+			if (
+				value &&
+				Math.round(value) < DISTANCE_TO_CHECKOUT &&
+				!checkout
+			) {
 				setAlertPresent(true);
 				Alert.alert(
-					"You Came",
-					"Checkout Now?",
+					'You Came',
+					'Checkout Now?',
 					[
 						{
-							text: "Cancel",
+							text: 'Cancel',
 							onPress: () => {
 								setCheckout(false);
 								setAlertPresent(false);
 							},
-							style: "cancel",
+							style: 'cancel',
 						},
 						{
-							text: "OK",
+							text: 'OK',
 							onPress: () => {
 								setCheckout(true);
 								setAlertPresent(false);
@@ -151,6 +157,17 @@ const Home = () => {
 		setDistance(distanceInMeters);
 	};
 
+	const handlePushNotifications = async (): Promise<void> => {
+		const tokenPushNotifications = await registerForPushNotificationsAsync();
+
+		// eslint-disable-next-line no-console
+		console.log('tokenPushNotifications:', tokenPushNotifications);
+
+		if (tokenPushNotifications) {
+			console.log(tokenPushNotifications);
+		}
+	};
+
 	useEffect(() => {
 		handleDistanceBetweenCoordinates(location);
 	}, [location]);
@@ -161,7 +178,8 @@ const Home = () => {
 
 	useEffect(() => {
 		handlePositionAsync();
-		NotificationPermission();
+		handlePushNotifications();
+		// NotificationPermission();
 	}, []);
 
 	return (
@@ -177,8 +195,11 @@ const Home = () => {
 								initialRegion={location}
 								userLocation={location}
 								locationToReach={LOCATION_TO_REACH}
-								pointersToFix={["toReach", "userLocation"]}
-								coordinatesToFix={[location.coords, LOCATION_TO_REACH.coords]}
+								pointersToFix={['toReach', 'userLocation']}
+								coordinatesToFix={[
+									location.coords,
+									LOCATION_TO_REACH.coords,
+								]}
 							/>
 						) : null}
 					</View>
@@ -207,16 +228,24 @@ const Home = () => {
 								onPress={handleBackgroundLocation}
 								style={styles.buttonEnableBackgroundLocation}
 							>
-								<Text style={[styles.defaultText, { color: "white" }]}>
+								<Text
+									style={[
+										styles.defaultText,
+										{ color: 'white' },
+									]}
+								>
 									{useBackgroundLocation
-										? "Disable Background Location"
-										: "Enable Background Location"}
+										? 'Disable Background Location'
+										: 'Enable Background Location'}
 								</Text>
 							</TouchableOpacity>
 						</View>
 						{!checkout && !useBackgroundLocation ? (
 							<View style={styles.coordinatesContainerDetails}>
-								<RenderLatLng title="My Location" coords={location.coords} />
+								<RenderLatLng
+									title="My Location"
+									coords={location.coords}
+								/>
 								<RenderLatLng
 									title="Location Reach"
 									coords={LOCATION_TO_REACH.coords}

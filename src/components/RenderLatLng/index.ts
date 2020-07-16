@@ -1,3 +1,3 @@
-import RenderLatLng from "./RenderLatLng";
+import RenderLatLng from './RenderLatLng';
 
 export default RenderLatLng;

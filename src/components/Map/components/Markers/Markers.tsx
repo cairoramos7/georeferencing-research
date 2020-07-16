@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { Marker, MarkerProps } from "react-native-maps";
+import React, { ReactNode } from 'react';
+import { Marker, MarkerProps } from 'react-native-maps';
 
 const Markers = (props: MarkerProps & ReactNode) => {
 	const randomKey = (): string => {

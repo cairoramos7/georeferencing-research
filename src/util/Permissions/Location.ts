@@ -1,4 +1,4 @@
-import * as Location from "expo-location";
+import * as Location from 'expo-location';
 
 interface LocationRequestPermissionsAsyncI {
 	status: boolean;
@@ -9,10 +9,10 @@ export const LocationRequestPermissionsAsync = async (): Promise<
 	LocationRequestPermissionsAsyncI
 > => {
 	const { status } = await Location.requestPermissionsAsync();
-	if (status !== "granted") {
+	if (status !== 'granted') {
 		return {
 			status: false,
-			error: "Permission to access location was denied",
+			error: 'Permission to access location was denied',
 		};
 	}
 

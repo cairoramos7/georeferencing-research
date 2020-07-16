@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
-import { View } from "react-native";
-import MapView, { MapViewProps } from "react-native-maps";
+import React, { useRef, useEffect, useState } from 'react';
+import { View } from 'react-native';
+import MapView, { MapViewProps } from 'react-native-maps';
 
-import Markers from "./components/Markers";
-import styles from "./styles";
-import { MapI } from "./types";
+import Markers from './components/Markers';
+import styles from './styles';
+import { MapI } from './types';
 
 const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
 

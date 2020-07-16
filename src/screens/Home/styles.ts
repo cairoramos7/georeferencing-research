@@ -1,5 +1,5 @@
-import Layout from "@constants/Layout";
-import { StyleSheet } from "react-native";
+import Layout from '@constants/Layout';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 	container: {
@@ -17,11 +17,11 @@ export default StyleSheet.create({
 		paddingVertical: 10,
 	},
 	distanceContainerDetails: {
-		backgroundColor: "#FFF",
-		borderColor: "#CCC",
+		backgroundColor: '#FFF',
+		borderColor: '#CCC',
 		borderWidth: 1,
-		alignItems: "center",
-		justifyContent: "center",
+		alignItems: 'center',
+		justifyContent: 'center',
 		marginBottom: 10,
 		marginHorizontal: 5,
 		borderRadius: 15,
@@ -30,24 +30,24 @@ export default StyleSheet.create({
 	},
 
 	coordinatesContainerDetails: {
-		display: "flex",
-		flexDirection: "row",
+		display: 'flex',
+		flexDirection: 'row',
 	},
 
 	// background location
 	containerEnableBackgroundLocation: {
 		flex: 0,
 		elevation: 3,
-		backgroundColor: "#7a7a7a",
+		backgroundColor: '#7a7a7a',
 		marginBottom: 10,
 		marginHorizontal: 5,
 		borderRadius: 15,
 	},
 	buttonEnableBackgroundLocation: {
 		borderWidth: 1,
-		borderColor: "#CCC",
-		alignItems: "center",
-		justifyContent: "center",
+		borderColor: '#CCC',
+		alignItems: 'center',
+		justifyContent: 'center',
 		borderRadius: 15,
 		paddingVertical: 10,
 	},
@@ -55,11 +55,11 @@ export default StyleSheet.create({
 	// texts
 	title: {
 		fontSize: 30,
-		fontWeight: "bold",
+		fontWeight: 'bold',
 	},
 	subTitle: {
 		fontSize: 25,
-		fontWeight: "bold",
+		fontWeight: 'bold',
 	},
 	defaultText: {
 		fontSize: 20,

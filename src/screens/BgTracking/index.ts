@@ -1,3 +1,3 @@
-import BgTracking from "./BgTracking";
+import BgTracking from './BgTracking';
 
 export default BgTracking;

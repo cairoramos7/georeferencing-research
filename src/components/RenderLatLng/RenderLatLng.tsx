@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
 
-import styles from "./styles";
-import { RenderLatLngI } from "./types";
+import styles from './styles';
+import { RenderLatLngI } from './types';
 
 const RenderLatLng = (props: RenderLatLngI) => {
 	const {

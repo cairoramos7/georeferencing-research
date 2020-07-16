@@ -1,18 +1,18 @@
-import { P1_LOCATION, DISTANCE_TO_CHECKOUT } from "@constants/Geolocation";
-import Layout from "@constants/Layout";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import BgTracking from "@screens/BgTracking";
-import Home from "@screens/Home";
-import { DispatchNotification } from "@util/Notification/Notification";
-import * as SplashScreen from "expo-splash-screen";
-import * as TaskManager from "expo-task-manager";
-import { Haversine, GpsPoint } from "haversine-position";
-import React, { useEffect } from "react";
-import { StyleSheet, SafeAreaView, View } from "react-native";
-import { enableScreens } from "react-native-screens";
+import { P1_LOCATION, DISTANCE_TO_CHECKOUT } from '@constants/Geolocation';
+import Layout from '@constants/Layout';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import BgTracking from '@screens/BgTracking';
+import Home from '@screens/Home';
+import { DispatchNotification } from '@util/Notification/Notification';
+import * as SplashScreen from 'expo-splash-screen';
+import * as TaskManager from 'expo-task-manager';
+import { Haversine, GpsPoint } from 'haversine-position';
+import React, { useEffect } from 'react';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { enableScreens } from 'react-native-screens';
 
-const LOCATION_TASK_NAME = "background-location-task";
+const LOCATION_TASK_NAME = 'background-location-task';
 
 const Stack = createStackNavigator();
 
@@ -62,7 +62,10 @@ const App = (props: AppProps) => {
 							}}
 						>
 							<Stack.Screen name="Home" component={Home} />
-							<Stack.Screen name="BgTracking" component={BgTracking} />
+							<Stack.Screen
+								name="BgTracking"
+								component={BgTracking}
+							/>
 						</Stack.Navigator>
 					</NavigationContainer>
 				</SafeAreaView>
@@ -101,10 +104,13 @@ TaskManager.defineTask(
 					P1_LOCATION
 				);
 
-				if (Math.round(distanceInMetersBackground) < DISTANCE_TO_CHECKOUT) {
+				if (
+					Math.round(distanceInMetersBackground) <
+					DISTANCE_TO_CHECKOUT
+				) {
 					DispatchNotification({
-						title: "Checkout",
-						body: "Checkout now?",
+						title: 'Checkout',
+						body: 'Checkout now?',
 					});
 
 					// TaskManager.unregisterAllTasksAsync();
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
 		// borderWidth: 1,
 	},
 	SafeAreaContainer: {
-		height: "100%",
+		height: '100%',
 	},
 });
 

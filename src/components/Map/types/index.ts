@@ -1,4 +1,4 @@
-import { CoordinatesInterface } from "@util/Types/Coodinates";
+import { CoordinatesInterface } from '@util/Types/Coodinates';
 
 export interface LocationData {
 	coords: CoordinatesInterface;
@@ -20,7 +20,7 @@ export interface MapI {
 	showsUserLocation?: boolean;
 	userLocation: LocationData;
 	locationToReach: LocationToReachI;
-	pointersToFix?: ("userLocation" | "toReach")[];
+	pointersToFix?: ('userLocation' | 'toReach')[];
 	coordinatesToFix: CoordinatesI[] | null;
 	initialRegion: LocationToReachI;
 }

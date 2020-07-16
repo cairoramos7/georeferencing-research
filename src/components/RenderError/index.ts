@@ -1,3 +1,3 @@
-import RenderError from "./RenderError";
+import RenderError from './RenderError';
 
 export default RenderError;

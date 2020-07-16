@@ -1,4 +1,4 @@
-import { CoordinatesInterface } from "@util/Types/Coodinates";
+import { CoordinatesInterface } from '@util/Types/Coodinates';
 
 export interface LocationData {
 	coords: CoordinatesInterface;

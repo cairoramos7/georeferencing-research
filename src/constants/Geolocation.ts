@@ -1,8 +1,8 @@
-import { LocationToReachI } from "@components/Map/types";
-import { Accuracy, LocationOptions } from "expo-location";
-import { GpsPoint } from "haversine-position";
+import { LocationToReachI } from '@components/Map/types';
+import { Accuracy, LocationOptions } from 'expo-location';
+import { GpsPoint } from 'haversine-position';
 
-import Layout from "./Layout";
+import Layout from './Layout';
 
 const coorindatesSamples = {
 	appleCampus: {
@@ -33,7 +33,7 @@ export const LOCATION_SETTINGS: LocationOptions = {
 };
 
 export const TRACK_COORDS = {
-	...coorindatesSamples.brunoMartins,
+	...coorindatesSamples.cairoRamos,
 };
 
 export const LATITUDE_DELTA = TRACK_COORDS.latitude - TRACK_COORDS.longitude;

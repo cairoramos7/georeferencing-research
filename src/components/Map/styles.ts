@@ -1,14 +1,14 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 	container: {
 		...StyleSheet.absoluteFillObject,
-		justifyContent: "flex-end",
-		alignItems: "center",
-		overflow: "hidden",
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		overflow: 'hidden',
 		borderRadius: 15,
 		borderWidth: 1,
-		borderColor: "#CCC",
+		borderColor: '#CCC',
 		elevation: 3,
 	},
 	map: {
@@ -16,6 +16,6 @@ export default StyleSheet.create({
 	},
 	latlng: {
 		width: 200,
-		alignItems: "stretch",
+		alignItems: 'stretch',
 	},
 });

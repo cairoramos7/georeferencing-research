@@ -1,3 +1,3 @@
-import Markers from "./Markers";
+import Markers from './Markers';
 
 export default Markers;
