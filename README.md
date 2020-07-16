@@ -1,6 +1,6 @@
 # Georeferencing Research
 
-This application uses the background services.
+This app can poll for the current location or subscribe to location update events and the register for receiving location updates that can also come when the app is in the background.
 
 ## Pre requirements
 
